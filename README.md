@@ -6,6 +6,8 @@ ZED X 内置 BMI088 驱动适配、双目图像与 IMU 联合采集工具，以�
 
 ## 适用配置
 
+开发前请阅读 [开发依赖与需提供的资料](开发依赖与资料清单.md)：列明必需文档、厂商包、匹配 BSP/OOT 源码、图像基础交付及授权获取要求，不包含任何访问凭据。
+
 - 天准 N10，板型 `B25EJ21_007`，原厂定制 `6.8.12-rt-tegra` / L4T R38.2 内核。
 - ZED X 接 CAM-3/V7；双目 `/dev/video4`、`/dev/video5`。
 - 内置 BMI088：I²C bus 7，陀螺仪 `0x3b`、加速度计 `0x3c`。
@@ -69,7 +71,7 @@ validation/system-final.txt 最终驱动状态和校验记录
 
 图像、原始帧与 IMU 可以通过眼别和帧序号追溯：`images/pairs.json` → `frame-imu-pairs.csv` → `imu/imu.csv`。RAW 使用校验值与偏移定位，不能用文件修改时间作拍摄时间。
 
-`SHA256SUMS.txt` 对应原交付包的文件，`RUNTIME-SHA256SUMS.txt` 对应安装组件；新增的 Git README 和仓库配置不在原交付清单内。在仓库根目录检查：
+`SHA256SUMS.txt` 对应原交付包的文件，`RUNTIME-SHA256SUMS.txt` 对应安装组件；后续新增的 Git 文档和仓库配置不在原交付清单内。在仓库根目录检查：
 
 ```bash
 shasum -a 256 -c SHA256SUMS.txt
