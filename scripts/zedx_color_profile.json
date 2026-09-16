@@ -1,0 +1,41 @@
+{
+  "bayer_pattern": "GRBG",
+  "black_level_raw10": 42,
+  "rgb_gains": [
+    1.1846153736114502,
+    1.0,
+    2.2871286869049072
+  ],
+  "neutral_roi_normalized": [
+    0.25,
+    0.65,
+    0.75,
+    0.85
+  ],
+  "reference": "Assumed-neutral white tabletop in the captured scene; not a color-chart calibration",
+  "shared_between_eyes": true,
+  "neutral_medians_bgr_before": [
+    [
+      61.0,
+      139.0,
+      117.0
+    ],
+    [
+      40.0,
+      92.0,
+      78.0
+    ]
+  ],
+  "neutral_medians_bgr_after": [
+    [
+      139.5148468017578,
+      139.0,
+      138.60000610351562
+    ],
+    [
+      91.48514556884766,
+      92.0,
+      92.4000015258789
+    ]
+  ]
+}

@@ -1,0 +1,61 @@
+Linux localhost.localdomain 6.8.12-rt-tegra #19 SMP PREEMPT_RT Sat Aug  1 16:18:47 CST 2026 aarch64 aarch64 aarch64 GNU/Linux
+2026-02-05T13:52:39,185504153+08:00
+bmi088                 28672  0
+bmi_spsc               32768  1 bmi088
+sl_zedx                40960  0
+sl_max9295             20480  1 sl_zedx
+sl_max96712            45056  2 sl_max9295,sl_zedx
+tegra_camera          307200  48 s56,tegra_capture_isp,tegra_capture_coe,nv_imx185,sensing_s56_max96712,nvhost_nvcsi,nvhost_vi5,sl_zedx
+videodev              331776  5 v4l2_async,v4l2_fwnode,videobuf2_v4l2,tegra_camera,sl_zedx
+total 0
+lrwxrwxrwx 1 root root    0 Feb  5 13:52 7-003b -> ../../../../devices/platform/bus@0/810c680000.i2c/i2c-7/7-003b
+--w------- 1 root root 4096 Feb  5 13:52 bind
+lrwxrwxrwx 1 root root    0 Feb  5 13:52 module -> ../../../../module/bmi088
+--w------- 1 root root 4096 Feb  5 13:52 uevent
+--w------- 1 root root 4096 Feb  5 13:52 unbind
+stopped
+0
+0
+0
+fcc7467d04144892add17ec84bef38e54ee78f70e45897c8886f44c776d7c97b  /lib/modules/6.8.12-rt-tegra/updates/drivers/bmi088/bmi088.ko
+701b9b7887602b33abd3763b0c4a60258b76c47711bb153ff4989eaf192f893f  /opt/zedx-n10-imu-20260916/driver/bmi088.ko
+5e92f0a10b01003e6919c5d0a32e1a83993e85a0851683222696954e62043cb7  /opt/zedx-n10-imu-20260916/driver/bmi_spsc.ko
+[13348.950323] bmi088 7-004b: removed
+[13348.950332] bmi088: probe of 7-004b failed with error -5
+[13349.051720] bmi088 7-003b: probe done
+[13611.846218] bmi088 7-003b: removed
+[13632.578964] bmi088 7-004b: removed
+[13632.578970] bmi088: probe of 7-004b failed with error -5
+[13632.680739] bmi088 7-003b: probe done
+[13634.160274] bmi_spsc spsc_bmi0: spsc_bmi0: device busy (mmap_count=1)
+[13722.748380] bmi088 7-003b: removed
+[13722.853892] bmi088 7-004b: accel_irq is not set in DT
+[13722.853897] bmi088 7-004b: of_dt ERR
+[13722.853898] bmi088 7-004b: removed
+[13722.853900] bmi088: probe of 7-004b failed with error -2
+[13722.853926] bmi088 7-003b: accel_irq is not set in DT
+[13722.853927] bmi088 7-003b: of_dt ERR
+[13722.853928] bmi088 7-003b: removed
+[13722.853929] bmi088: probe of 7-003b failed with error -2
+[13723.101261] bmi088 7-004b: removed
+[13723.101269] bmi088: probe of 7-004b failed with error -5
+[13723.202578] bmi088 7-003b: probe done
+scripts/zed_raw_processing.py: OK
+scripts/capture_imu_n10: OK
+source/bmi088/bmi088_core.h: OK
+scripts/install_imu_on_n10.sh: OK
+source/bmi088/Makefile: OK
+source/capture_timestamps.c: OK
+scripts/capture_joint_n10.sh: OK
+driver/bmi_spsc.ko: OK
+source/bmi088/bmi_spsc.c: OK
+driver/bmi088.ko: OK
+scripts/capture_timestamps: OK
+source/bmi088/bmi088_core.c: OK
+scripts/analyze_joint_n10.py: OK
+scripts/export_timestamped_pairs.py: OK
+scripts/zedx_color_profile.json: OK
+source/bmi088/bmi_spsc.h: OK
+source/capture_imu_n10.c: OK
+scripts/preview_zed_raw.py: OK
+scripts/load_zedx_imu_n10.sh: OK

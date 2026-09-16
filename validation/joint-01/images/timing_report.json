@@ -1,0 +1,138 @@
+{
+  "session": {
+    "boot_id": "7b75d47b-4c6c-4ee6-857a-d44e69bd245b",
+    "counter_frequency_hz": 1000000000,
+    "timestamp_precision_ns": 1000,
+    "start_monotonic_ns": 13464217968432,
+    "end_monotonic_ns": 13506167969182,
+    "system_clock_synchronized": false,
+    "adjtimex_state": 5,
+    "adjtimex_status": 64,
+    "warmup_frames": 60,
+    "requested_frames_per_eye": 1212,
+    "capture_return_code": 0
+  },
+  "timestamp_domain": "RTCPU/architected hardware counter; validated with CNTVCT samples",
+  "timestamp_event": "VI SOF arrival according to vendor implementation/documentation; V4L2 flags advertise EOF",
+  "not_exposure_or_cpld_timestamp": true,
+  "utc_calibrated": false,
+  "pair_tolerance_us": 1000,
+  "matched_post_warmup_pairs": 1145,
+  "absolute_pair_delta_us": {
+    "min": 2.0,
+    "median": 5.0,
+    "p95": 22.0,
+    "max": 26.0
+  },
+  "exported_pairs": 5,
+  "color_profile": {
+    "bayer_pattern": "GRBG",
+    "black_level_raw10": 42,
+    "rgb_gains": [
+      1.1846153736114502,
+      1.0,
+      2.2871286869049072
+    ],
+    "neutral_roi_normalized": [
+      0.25,
+      0.65,
+      0.75,
+      0.85
+    ],
+    "reference": "Assumed-neutral white tabletop in the captured scene; not a color-chart calibration",
+    "shared_between_eyes": true,
+    "neutral_medians_bgr_before": [
+      [
+        61.0,
+        139.0,
+        117.0
+      ],
+      [
+        40.0,
+        92.0,
+        78.0
+      ]
+    ],
+    "neutral_medians_bgr_after": [
+      [
+        139.5148468017578,
+        139.0,
+        138.60000610351562
+      ],
+      [
+        91.48514556884766,
+        92.0,
+        92.4000015258789
+      ]
+    ]
+  },
+  "eyes": {
+    "left": {
+      "captured_frames": 1212,
+      "valid_post_warmup_frames": 1152,
+      "v4l2_error_frames": 0,
+      "sequence_discontinuities": 0,
+      "interval_ms": {
+        "min": 33.333,
+        "median": 33.333,
+        "p95": 33.334,
+        "max": 33.36
+      },
+      "median_fps": 30.00030000300003,
+      "unmatched_post_warmup_frames": 7,
+      "unmatched_inside_overlap": 0,
+      "dequeue_latency_ms_estimate": {
+        "min": 32.134786,
+        "median": 32.3078575,
+        "p95": 32.4637693,
+        "max": 33.916134
+      },
+      "counter_to_monotonic_raw_offset_ns": {
+        "min": 21844690226.0,
+        "median": 21844690315.0,
+        "p95": 21844690439.0,
+        "max": 21844690490.0
+      },
+      "clock_sample_span_ns": {
+        "min": 148.0,
+        "median": 407.0,
+        "p95": 444.45000000000005,
+        "max": 574.0
+      }
+    },
+    "right": {
+      "captured_frames": 1212,
+      "valid_post_warmup_frames": 1152,
+      "v4l2_error_frames": 0,
+      "sequence_discontinuities": 0,
+      "interval_ms": {
+        "min": 33.332,
+        "median": 33.333,
+        "p95": 33.334,
+        "max": 33.361
+      },
+      "median_fps": 30.00030000300003,
+      "unmatched_post_warmup_frames": 7,
+      "unmatched_inside_overlap": 0,
+      "dequeue_latency_ms_estimate": {
+        "min": 32.143008,
+        "median": 32.3157875,
+        "p95": 32.47223025,
+        "max": 34.256806
+      },
+      "counter_to_monotonic_raw_offset_ns": {
+        "min": 21844684874.0,
+        "median": 21844690439.0,
+        "p95": 21844690444.0,
+        "max": 21844690458.0
+      },
+      "clock_sample_span_ns": {
+        "min": 148.0,
+        "median": 157.0,
+        "p95": 426.0,
+        "max": 11278.0
+      }
+    }
+  },
+  "all_interior_frames_paired": true
+}

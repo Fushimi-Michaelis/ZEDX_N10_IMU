@@ -1,0 +1,11 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+*.o
+*.mod
+*.mod.c
+*.cmd
+Module.symvers
+modules.order
+source/bmi088/*.ko
+*.zip

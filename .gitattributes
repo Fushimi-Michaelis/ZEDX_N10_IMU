@@ -1,0 +1,5 @@
+*.raw binary
+*.png binary
+*.ko binary
+scripts/capture_imu_n10 binary
+scripts/capture_timestamps binary

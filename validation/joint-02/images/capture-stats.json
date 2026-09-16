@@ -1,0 +1,38 @@
+{
+  "color_processing": {
+    "bayer": "GRBG",
+    "rgb_gains": [
+      1.1846153736114502,
+      1.0,
+      2.2871286869049072
+    ],
+    "black_level_raw10": 42,
+    "shared_white_level": 306.4752502441406,
+    "transfer": "sRGB",
+    "profile": "/opt/zedx-n10-imu-20260916/scripts/zedx_color_profile.json"
+  },
+  "4": {
+    "frames": 5,
+    "bytes": 23040000,
+    "min": 2242,
+    "max": 25625,
+    "nonzero_fraction": 1.0,
+    "preview_levels": [
+      2754.0,
+      22037.0
+    ],
+    "mean_absolute_change": 242.61922829861112
+  },
+  "5": {
+    "frames": 5,
+    "bytes": 23040000,
+    "min": 2370,
+    "max": 23062,
+    "nonzero_fraction": 1.0,
+    "preview_levels": [
+      2690.0,
+      21332.0
+    ],
+    "mean_absolute_change": 200.8773025173611
+  }
+}

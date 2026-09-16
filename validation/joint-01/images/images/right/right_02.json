@@ -1,0 +1,23 @@
+{
+  "index": 61,
+  "sequence": 62,
+  "flags": 8193,
+  "bytesused": 4608000,
+  "buffer_index": 5,
+  "warmup": 0,
+  "v4l2_timestamp_ns": 13489421273000,
+  "counter_ns": 13489455511574,
+  "receive_monotonic_raw_ns": 13467610821191,
+  "receive_monotonic_ns": 13467610821385,
+  "receive_realtime_ns": 1770270378806041138,
+  "counter_to_raw_offset_ns": 21844690383,
+  "frame_monotonic_raw_estimate_ns": 13467576582617,
+  "clock_sample_span_ns": 260,
+  "source_capture_raw_file": "right_seq000062.raw",
+  "png_file": "images/right/right_02.png",
+  "png_sha256": "b626e7890874defce9868fd8e23b5ddc9086c79381adfe897a116267ff9ee7f0",
+  "raw_frame_sha256": "e8bbd7bde3b5259422f7649e1a252cc2f4d99abb4a0560033eea8eaf969995ab",
+  "raw_batch_file": "raw/right_5frames.raw",
+  "raw_batch_byte_offset": 4608000,
+  "receive_realtime_is_utc_trusted": false
+}

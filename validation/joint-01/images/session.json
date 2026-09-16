@@ -1,0 +1,13 @@
+{
+  "boot_id": "7b75d47b-4c6c-4ee6-857a-d44e69bd245b",
+  "counter_frequency_hz": 1000000000,
+  "timestamp_precision_ns": 1000,
+  "start_monotonic_ns": 13464217968432,
+  "end_monotonic_ns": 13506167969182,
+  "system_clock_synchronized": false,
+  "adjtimex_state": 5,
+  "adjtimex_status": 64,
+  "warmup_frames": 60,
+  "requested_frames_per_eye": 1212,
+  "capture_return_code": 0
+}

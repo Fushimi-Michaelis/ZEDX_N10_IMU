@@ -1,0 +1,105 @@
+{
+  "boot_id": "7b75d47b-4c6c-4ee6-857a-d44e69bd245b",
+  "utc_verified": false,
+  "exposure_alignment_verified": false,
+  "dynamic_visual_imu_offset_verified": false,
+  "meaning": "Nearest estimated IMU sample to VI SOF in CLOCK_MONOTONIC; not measurement of physical synchrony",
+  "imu_session": {
+    "boot_id": "7b75d47b-4c6c-4ee6-857a-d44e69bd245b",
+    "samples": 8996,
+    "duration_seconds": 45,
+    "begin_monotonic_ns": 13632852949051,
+    "end_monotonic_ns": 13677901194360,
+    "utc_verified": false,
+    "exposure_verified": false,
+    "sample_time_is_estimated": true,
+    "accel_range_g": 12,
+    "gyro_range_dps": 1000,
+    "accel_frequency": 200,
+    "gyro_frequency": 200,
+    "i2c_errors": 0,
+    "ring_drops": 0,
+    "fifo_overruns": 0,
+    "interrupted": false
+  },
+  "imu_interval_ns": {
+    "n": 7994,
+    "min": 4604052,
+    "median": 4999859.0,
+    "p95": 5008842,
+    "p99": 5128021,
+    "max": 6000000
+  },
+  "imu_frequency_hz": 199.9249902194483,
+  "imu_receive_age_ns": {
+    "n": 7995,
+    "min": 1549829,
+    "median": 13496977,
+    "p95": 20329083,
+    "p99": 20558155,
+    "max": 36902872
+  },
+  "imu_interval_over_7_5ms": 0,
+  "accel_norm_mps2": {
+    "n": 7995,
+    "min": 9.71481908364254,
+    "median": 9.800846757033176,
+    "p95": 9.833125252364228,
+    "p99": 9.847384171626372,
+    "max": 9.872820406960187
+  },
+  "gyro_mean_dps": {
+    "gx_raw": -0.04729365765712946,
+    "gy_raw": -0.02463163622772045,
+    "gz_raw": -0.025677516953955596
+  },
+  "camera": {
+    "left": {
+      "frames": 1212,
+      "post_warmup_frames": 1152,
+      "error_frames": 0,
+      "sequence_discontinuities": 0,
+      "uncovered_frames": 0,
+      "nearest_imu_abs_distance_ns": {
+        "n": 1152,
+        "min": 33923,
+        "median": 1094448.5,
+        "p95": 2433709,
+        "p99": 2489271,
+        "max": 2734499
+      },
+      "frame_interval_ns": {
+        "n": 1151,
+        "min": 33331684,
+        "median": 33333009,
+        "p95": 33334259,
+        "p99": 33359999,
+        "max": 33360324
+      }
+    },
+    "right": {
+      "frames": 1212,
+      "post_warmup_frames": 1152,
+      "error_frames": 0,
+      "sequence_discontinuities": 0,
+      "uncovered_frames": 0,
+      "nearest_imu_abs_distance_ns": {
+        "n": 1152,
+        "min": 31904,
+        "median": 1093326.0,
+        "p95": 2430401,
+        "p99": 2489605,
+        "max": 2732165
+      },
+      "frame_interval_ns": {
+        "n": 1151,
+        "min": 33320314,
+        "median": 33333000,
+        "p95": 33334010,
+        "p99": 33360000,
+        "max": 33361000
+      }
+    }
+  },
+  "transport_and_estimated_time_pairing_passed": true
+}
