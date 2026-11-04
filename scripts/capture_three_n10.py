@@ -9,6 +9,7 @@ from pathlib import Path
 import signal
 import subprocess
 import time
+import tempfile
 from contextlib import ExitStack
 from session_integrity import seal
 from zed_sdk_runtime import sdk_environment
@@ -24,7 +25,8 @@ def capture_command(name, folder, args):
         return [str(ROOT/'build/capture_zed_n10'), str(folder), str(args.frames),
                 str(WARMUP_FRAMES), str(args.save_every), args.depth_mode,
                 str(args.depth_stabilization)]
-    return [str(ROOT/'build/capture_shw_n10'), str(SHW_INDICES[name]), str(folder),
+    executable = 'capture_shw_live_n10' if args.live else 'capture_shw_n10'
+    return [str(ROOT/'build'/executable), str(SHW_INDICES[name]), str(folder),
             str(args.frames), str(args.save_every)]
 
 
@@ -70,7 +72,13 @@ def summarize(folder):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('output', type=Path)
+    parser.add_argument('output', type=Path, nargs='?')
+    parser.add_argument('--live', action='store_true', help='Continuous preview without recording image files')
+    parser.add_argument('--preview-fps', type=int, default=10)
+    parser.add_argument('--preview-width', type=int, default=960)
+    parser.add_argument('--preview-port', type=int, default=0)
+    parser.add_argument('--watch-stdin', action='store_true', help='Stop after SSH input closes or heartbeat expires')
+    parser.add_argument('--duration', type=float, default=0, help='Live seconds after warmup; 0 runs until stopped')
     parser.add_argument('--cameras', nargs='+', choices=CAMERAS, default=list(CAMERAS))
     parser.add_argument('--frames', type=int, default=600)
     parser.add_argument('--depth-mode', choices=('NEURAL', 'NEURAL_LIGHT'), default='NEURAL')
@@ -80,8 +88,13 @@ def main():
     args = parser.parse_args()
     if os.geteuid() or os.uname().machine != 'aarch64':
         parser.error('Run with sudo on Thor')
-    if not args.output.is_absolute() or args.output.exists():
+    if not args.live and (args.output is None or not args.output.is_absolute() or args.output.exists()):
         parser.error('Use a new absolute output directory')
+    if args.live and args.output is not None:
+        parser.error('Live output is temporary; omit the output directory')
+    if (not 1 <= args.preview_fps <= 30 or not 320 <= args.preview_width <= 1920 or args.preview_width % 2
+            or not 0 <= args.preview_port <= 65535 or not 0 <= args.duration <= 86400):
+        parser.error('Invalid live rate, width, port or duration')
     if not 2 <= args.frames <= 10000 or args.save_every < 1 or len(set(args.cameras)) != len(args.cameras):
         parser.error('Invalid frame count, save interval or duplicate camera')
     env = sdk_environment()
@@ -100,6 +113,11 @@ def main():
                 fcntl.flock(lock, mode | fcntl.LOCK_NB)
             except BlockingIOError:
                 parser.error(f'Camera or initialization busy: {name}')
+        if args.live:
+            from live_preview import run_live
+            args.frames = 0
+            args.output = Path(stack.enter_context(tempfile.TemporaryDirectory(prefix='n10-live-', dir='/dev/shm')))/'session'
+            return run_live(args, env, capture_command)
         args.output.mkdir(parents=True)
         signal.signal(signal.SIGTERM, stop)
         signal.signal(signal.SIGINT, stop)

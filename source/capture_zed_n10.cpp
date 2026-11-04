@@ -13,6 +13,7 @@
 #include <memory>
 #include <array>
 #include "camera_transition_lock.h"
+#include "live_preview.h"
 
 static volatile std::sig_atomic_t stopping = 0;
 static void stop_capture(int) { stopping = 1; }
@@ -51,6 +52,7 @@ int main(int argc, char** argv) {
     fs::path output(argv[1]);
     CameraTransitionLock transition;
     try {
+        LivePreview preview(output);
         int count = std::stoi(argv[2]), warmup = std::stoi(argv[3]);
         int save_every = argc >= 5 ? std::stoi(argv[4]) : 1;
         const std::string depth_mode = argc >= 6 ? argv[5] : "NEURAL";
@@ -60,7 +62,7 @@ int main(int argc, char** argv) {
         if (save_every < 1) throw std::runtime_error("Invalid save interval");
         std::signal(SIGTERM, stop_capture);
         std::signal(SIGINT, stop_capture);
-        if (count < 1 || count > 10000 || warmup < 30 || warmup > 10000)
+        if (count < (preview.enabled ? 0 : 1) || count > 10000 || warmup < 30 || warmup > 10000)
             throw std::runtime_error("Invalid frame counts");
         if (!fs::create_directory(output)) throw std::runtime_error("Output already exists");
         sl::InitParameters init;
@@ -99,17 +101,29 @@ int main(int argc, char** argv) {
         warmup_runtime.enable_depth = false;
         for (int i = 0; i < warmup; ++i) check(camera.grab(warmup_runtime), "warmup grab");
         transition.unlock();
-        std::ofstream frames(output/"frames.csv");
-        frames << "index,timestamp_ns,width,height,exposure_us,analog_gain_mdb,whitebalance_k,host_monotonic_ns,saved\n";
+        std::ofstream frames;
+        if (!preview.enabled) {
+            frames.open(output/"frames.csv");
+            frames << "index,timestamp_ns,width,height,exposure_us,analog_gain_mdb,whitebalance_k,host_monotonic_ns,saved\n";
+        }
         sl::Mat left, right, depth, confidence, depth_view;
+        sl::Mat preview_rgb, preview_depth;
+        const sl::Resolution preview_size(preview.width, preview.height(1920,1200));
         std::future<void> writer;
-        int acquired = 0;
-        for (int i = 0; i < count && !stopping; ++i) {
+        unsigned long long acquired = 0;
+        for (unsigned long long i = 0; (preview.enabled || i < static_cast<unsigned>(count)) && !stopping; ++i) {
             check(camera.grab(runtime), "grab RGB-D");
             const auto timestamp = camera.getTimestamp(sl::TIME_REFERENCE::IMAGE).getNanoseconds();
             const auto host = std::chrono::duration_cast<std::chrono::nanoseconds>(
                 std::chrono::steady_clock::now().time_since_epoch()).count();
-            const bool saved = i % save_every == 0;
+            if (preview.due()) {
+                check(camera.retrieveImage(preview_rgb, sl::VIEW::LEFT, sl::MEM::CPU, preview_size), "retrieve preview RGB");
+                check(camera.retrieveImage(preview_depth, sl::VIEW::DEPTH, sl::MEM::CPU, preview_size), "retrieve preview depth");
+                check(preview_rgb.write((output/"preview-rgb.jpg").string().c_str()), "encode preview RGB");
+                check(preview_depth.write((output/"preview-depth.jpg").string().c_str()), "encode preview depth");
+                preview.publish({output/"preview-rgb.jpg", output/"preview-depth.jpg"}, timestamp, host, i+1);
+            }
+            const bool saved = !preview.enabled && i % save_every == 0;
             if (saved) {
             if (writer.valid()) writer.get();
             check(camera.retrieveImage(left, sl::VIEW::LEFT), "retrieve rectified left");
@@ -138,6 +152,7 @@ int main(int argc, char** argv) {
             fs::rename(output/"latest-depth-tmp.jpg", output/"latest-depth.jpg");
             });
             }
+            if (!preview.enabled) {
             int exposure = 0, gain = 0, whitebalance = 0;
             check(camera.getCameraSettings(sl::VIDEO_SETTINGS::EXPOSURE_TIME, exposure), "read exposure");
             check(camera.getCameraSettings(sl::VIDEO_SETTINGS::ANALOG_GAIN, gain), "read analog gain");
@@ -146,6 +161,7 @@ int main(int argc, char** argv) {
                    << ',' << exposure << ',' << gain << ',' << whitebalance << ',' << host << ',' << saved << '\n';
             frames.flush();
             if (!frames) throw std::runtime_error("Cannot write frame metadata");
+            }
             ++acquired;
             if (i == 0) { std::ofstream ready(output/"ready"); ready << timestamp << '\n'; }
         }
